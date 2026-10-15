@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Heart with an upward chevron: "liked" + "next". Drawn inside the 66dp adaptive-icon safe zone. -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp" android:height="108dp" android:viewportWidth="108" android:viewportHeight="108">
+    <path android:fillColor="#FFFFFF"
+        android:pathData="M54,80L50.8,77.1C39.4,66.8 32,60.1 32,51.8C32,45 37.3,39.8 44,39.8C47.8,39.8 51.4,41.5 54,44.3C56.6,41.5 60.2,39.8 64,39.8C70.7,39.8 76,45 76,51.8C76,60.1 68.6,66.8 57.2,77.1Z" />
+    <path android:fillColor="#FE2C55"
+        android:pathData="M54,49L45,58L48,61L54,55L60,61L63,58Z" />
+</vector>

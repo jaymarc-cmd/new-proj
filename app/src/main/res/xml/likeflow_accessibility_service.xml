@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Events are limited to TikTok's packages, so LikeFlow never receives events from other apps.
+    canTakeScreenshot is only honoured on Android 11+; older devices fall back to the
+    accessibility tree.
+-->
+<accessibility-service xmlns:android="http://schemas.android.com/apk/res/android"
+    android:accessibilityEventTypes="typeWindowStateChanged|typeWindowContentChanged|typeViewScrolled"
+    android:accessibilityFeedbackType="feedbackGeneric"
+    android:accessibilityFlags="flagDefault|flagIncludeNotImportantViews"
+    android:canPerformGestures="true"
+    android:canRetrieveWindowContent="true"
+    android:canTakeScreenshot="true"
+    android:description="@string/accessibility_service_description"
+    android:notificationTimeout="250"
+    android:packageNames="com.zhiliaoapp.musically,com.ss.android.ugc.trill,com.zhiliaoapp.musically.go"
+    android:settingsActivity="com.likeflow.app.ui.MainActivity" />

@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">LikeFlow</string>
+    <string name="tagline">TikTok Liked Videos Auto Scroll</string>
+    <string name="prototype">Prototype</string>
+
+    <string name="accessibility_service_label">LikeFlow auto-scroll</string>
+    <string name="accessibility_service_description">LikeFlow watches TikTok only while it is open and auto-scroll is switched on in the LikeFlow app. It reads TikTok\'s playback progress (from the screen or TikTok\'s accessibility information) to tell when a video has finished, then performs one upward swipe to move to the next video. Everything is processed on your phone. Nothing is stored or sent anywhere, and LikeFlow never sees your TikTok password or account.</string>
+
+    <string name="status_label">AUTO-SCROLL STATUS</string>
+    <string name="status_monitor_note">The app will monitor TikTok only while it is open and auto-scroll is enabled.</string>
+
+    <string name="status_service_off_title">Ready to configure</string>
+    <string name="status_service_off_detail">Turn on the LikeFlow accessibility service to begin.</string>
+    <string name="status_paused_title">Auto-scroll is off</string>
+    <string name="status_paused_detail">Switch on auto-scroll below, then open your Liked videos in TikTok.</string>
+    <string name="status_waiting_title">Waiting for TikTok</string>
+    <string name="status_waiting_detail">Open TikTok, go to Profile → Liked, and tap the first video.</string>
+    <string name="status_no_signal_title">Waiting: no progress signal</string>
+    <string name="status_no_signal_detail">LikeFlow can\'t read this video\'s playback progress, so it won\'t swipe. Try a longer video (TikTok shows its progress bar more often on those), or check the diagnostics below.</string>
+    <string name="status_learning_title">Checking progress signal (%1$d/3)</string>
+    <string name="status_learning_detail">Found progress via %1$s. Making sure it moves steadily before trusting it.</string>
+    <string name="status_watching_title">Watching: %1$d%%</string>
+    <string name="status_watching_detail">Tracking via %1$s. Will swipe once when the video finishes.</string>
+    <string name="status_watching_detail_dry">Tracking via %1$s. Dry run: will log the finish without swiping.</string>
+    <string name="status_cooldown_title">Moving to the next video</string>
+    <string name="status_cooldown_detail">Letting the next video settle before checking again.</string>
+    <string name="status_dry_run_suffix">Dry run</string>
+
+    <string name="enable_service">Enable in Accessibility settings</string>
+    <string name="restricted_settings_hint">If Android says the setting is restricted (common for apps installed from an APK), open App info, tap ⋮, choose \"Allow restricted settings\", then try again.</string>
+    <string name="open_app_info">Open App info</string>
+    <string name="auto_scroll_switch">Auto-scroll</string>
+    <string name="open_tiktok">Open TikTok</string>
+    <string name="tiktok_not_installed">TikTok doesn\'t appear to be installed.</string>
+
+    <string name="feature_detect_title">Detect video completion</string>
+    <string name="feature_detect_body">Read playback progress when available and check for the end-of-video transition.</string>
+    <string name="feature_swipe_title">Swipe to the next video</string>
+    <string name="feature_swipe_body">Perform one upward swipe when completion is detected.</string>
+    <string name="feature_private_title">On-device processing</string>
+    <string name="feature_private_body">No TikTok password, account connection, or external server is required.</string>
+
+    <string name="section_detection">Detection</string>
+    <string name="dry_run_switch">Dry run (detect only, never swipe)</string>
+    <string name="dry_run_hint">Use this first to check whether your phone exposes TikTok\'s playback progress reliably.</string>
+    <string name="screenshot_switch">Read the on-screen progress bar</string>
+    <string name="screenshot_hint">Uses accessibility screenshots, analysed on the phone and then discarded.</string>
+    <string name="screenshot_unsupported">Needs Android 11 or later. On this phone LikeFlow can only use TikTok\'s accessibility data.</string>
+    <string name="visual_loop_switch">Visual loop check (experimental)</string>
+    <string name="visual_loop_hint">When no progress is exposed, compare frames to spot the video restarting. Can miss loops; may misfire on very repetitive videos.</string>
+
+    <string name="section_how_to">How to use</string>
+    <string name="how_to_steps">1. Enable LikeFlow in Accessibility settings.\n2. Switch on auto-scroll (try dry run first).\n3. In TikTok, open Profile → Liked and tap the first video.\n4. Leave TikTok on screen. LikeFlow pauses whenever you leave TikTok.</string>
+
+    <string name="section_diagnostics">Diagnostics</string>
+    <string name="diagnostics_counts">Completions detected: %1$d · Swipes: %2$d</string>
+    <string name="diagnostics_empty">No events yet.</string>
+
+    <string name="footer">Prototype. TikTok may loop a video instead of reporting that it finished, so LikeFlow waits whenever it can\'t confidently detect completion. Not affiliated with TikTok.</string>
+</resources>

@@ -1,0 +1,308 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/scroll"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:clipToPadding="false"
+    android:fillViewport="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingHorizontal="20dp"
+        android:paddingTop="24dp"
+        android:paddingBottom="32dp">
+
+        <!-- Header -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/app_name"
+                    android:textColor="@color/text_primary"
+                    android:textSize="30sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/tagline"
+                    android:textColor="@color/text_secondary"
+                    android:textSize="14sp" />
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/chip"
+                android:paddingHorizontal="12dp"
+                android:paddingVertical="6dp"
+                android:text="@string/prototype"
+                android:textColor="@color/accent"
+                android:textSize="12sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <!-- Status -->
+        <LinearLayout style="@style/LikeFlow.Card">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:letterSpacing="0.08"
+                android:text="@string/status_label"
+                android:textColor="@color/accent"
+                android:textSize="12sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/status_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:text="@string/status_service_off_title"
+                android:textColor="@color/text_primary"
+                android:textSize="22sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/status_detail"
+                style="@style/LikeFlow.Body"
+                android:layout_marginTop="4dp"
+                android:text="@string/status_service_off_detail" />
+
+            <ProgressBar
+                android:id="@+id/status_progress"
+                style="@android:style/Widget.Material.ProgressBar.Horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="6dp"
+                android:layout_marginTop="14dp"
+                android:max="1000"
+                android:progressDrawable="@drawable/progress_track"
+                android:visibility="gone" />
+
+            <TextView
+                style="@style/LikeFlow.Hint"
+                android:layout_marginTop="12dp"
+                android:layout_marginBottom="0dp"
+                android:text="@string/status_monitor_note" />
+
+            <Button
+                android:id="@+id/enable_service"
+                style="@style/LikeFlow.Button"
+                android:text="@string/enable_service" />
+
+            <TextView
+                android:id="@+id/restricted_hint"
+                style="@style/LikeFlow.Hint"
+                android:layout_marginTop="8dp"
+                android:text="@string/restricted_settings_hint"
+                android:visibility="gone" />
+
+            <Button
+                android:id="@+id/open_app_info"
+                style="@style/LikeFlow.Button.Secondary"
+                android:layout_marginTop="4dp"
+                android:text="@string/open_app_info"
+                android:visibility="gone" />
+
+            <Switch
+                android:id="@+id/auto_scroll_switch"
+                style="@style/LikeFlow.Switch"
+                android:layout_marginTop="8dp"
+                android:text="@string/auto_scroll_switch"
+                android:textSize="17sp"
+                android:textStyle="bold" />
+
+            <Button
+                android:id="@+id/open_tiktok"
+                style="@style/LikeFlow.Button.Secondary"
+                android:text="@string/open_tiktok" />
+        </LinearLayout>
+
+        <!-- What it does -->
+        <LinearLayout style="@style/LikeFlow.Card">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_marginEnd="14dp"
+                    android:importantForAccessibility="no"
+                    android:src="@drawable/ic_detect" />
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        style="@style/LikeFlow.SectionTitle"
+                        android:textSize="15sp"
+                        android:text="@string/feature_detect_title" />
+
+                    <TextView
+                        style="@style/LikeFlow.Body"
+                        android:text="@string/feature_detect_body" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_marginEnd="14dp"
+                    android:importantForAccessibility="no"
+                    android:src="@drawable/ic_swipe" />
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        style="@style/LikeFlow.SectionTitle"
+                        android:textSize="15sp"
+                        android:text="@string/feature_swipe_title" />
+
+                    <TextView
+                        style="@style/LikeFlow.Body"
+                        android:text="@string/feature_swipe_body" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_marginEnd="14dp"
+                    android:importantForAccessibility="no"
+                    android:src="@drawable/ic_private" />
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        style="@style/LikeFlow.SectionTitle"
+                        android:textSize="15sp"
+                        android:text="@string/feature_private_title" />
+
+                    <TextView
+                        style="@style/LikeFlow.Body"
+                        android:text="@string/feature_private_body" />
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+
+        <!-- Detection settings -->
+        <LinearLayout style="@style/LikeFlow.Card">
+
+            <TextView
+                style="@style/LikeFlow.SectionTitle"
+                android:layout_marginBottom="4dp"
+                android:text="@string/section_detection" />
+
+            <Switch
+                android:id="@+id/dry_run_switch"
+                style="@style/LikeFlow.Switch"
+                android:text="@string/dry_run_switch" />
+
+            <TextView
+                style="@style/LikeFlow.Hint"
+                android:text="@string/dry_run_hint" />
+
+            <Switch
+                android:id="@+id/screenshot_switch"
+                style="@style/LikeFlow.Switch"
+                android:text="@string/screenshot_switch" />
+
+            <TextView
+                android:id="@+id/screenshot_hint"
+                style="@style/LikeFlow.Hint"
+                android:text="@string/screenshot_hint" />
+
+            <Switch
+                android:id="@+id/visual_loop_switch"
+                style="@style/LikeFlow.Switch"
+                android:text="@string/visual_loop_switch" />
+
+            <TextView
+                style="@style/LikeFlow.Hint"
+                android:layout_marginBottom="0dp"
+                android:text="@string/visual_loop_hint" />
+        </LinearLayout>
+
+        <!-- How to use -->
+        <LinearLayout style="@style/LikeFlow.Card">
+
+            <TextView
+                style="@style/LikeFlow.SectionTitle"
+                android:layout_marginBottom="8dp"
+                android:text="@string/section_how_to" />
+
+            <TextView
+                style="@style/LikeFlow.Body"
+                android:lineSpacingMultiplier="1.35"
+                android:text="@string/how_to_steps" />
+        </LinearLayout>
+
+        <!-- Diagnostics -->
+        <LinearLayout style="@style/LikeFlow.Card">
+
+            <TextView
+                style="@style/LikeFlow.SectionTitle"
+                android:text="@string/section_diagnostics" />
+
+            <TextView
+                android:id="@+id/diagnostics_counts"
+                style="@style/LikeFlow.Body"
+                android:layout_marginTop="6dp" />
+
+            <TextView
+                android:id="@+id/diagnostics_log"
+                style="@style/LikeFlow.Body"
+                android:layout_marginTop="10dp"
+                android:fontFamily="monospace"
+                android:text="@string/diagnostics_empty"
+                android:textIsSelectable="true"
+                android:textSize="12sp" />
+        </LinearLayout>
+
+        <TextView
+            style="@style/LikeFlow.Hint"
+            android:layout_marginTop="20dp"
+            android:gravity="center"
+            android:text="@string/footer" />
+    </LinearLayout>
+</ScrollView>
