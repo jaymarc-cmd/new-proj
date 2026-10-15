@@ -1,5 +1,6 @@
 package com.likeflow.app.core
 
+import android.graphics.Bitmap
 import android.os.Handler
 import android.os.Looper
 import java.text.SimpleDateFormat
@@ -51,6 +52,10 @@ object LikeFlowStatus {
         val completionsDetected: Int = 0,
         val dryRun: Boolean = false,
         val log: List<String> = emptyList(),
+        /** Technical detail on what each detection method currently sees. */
+        val debug: String = "",
+        /** Latest analysed screen strip with bar candidates marked. */
+        val preview: Bitmap? = null,
     )
 
     @Volatile

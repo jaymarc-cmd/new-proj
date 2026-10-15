@@ -11,6 +11,7 @@ import android.text.TextUtils
 import android.view.View
 import android.view.WindowInsets
 import android.widget.Button
+import android.widget.ImageView
 import android.widget.ProgressBar
 import android.widget.ScrollView
 import android.widget.Switch
@@ -39,6 +40,9 @@ class MainActivity : Activity() {
     private lateinit var visualLoop: Switch
     private lateinit var diagnosticsCounts: TextView
     private lateinit var diagnosticsLog: TextView
+    private lateinit var diagnosticsDetail: TextView
+    private lateinit var previewLabel: TextView
+    private lateinit var preview: ImageView
 
     private val statusListener: (LikeFlowStatus.Snapshot) -> Unit = { render(it) }
 
@@ -59,6 +63,9 @@ class MainActivity : Activity() {
         visualLoop = view(R.id.visual_loop_switch)
         diagnosticsCounts = view(R.id.diagnostics_counts)
         diagnosticsLog = view(R.id.diagnostics_log)
+        diagnosticsDetail = view(R.id.diagnostics_detail)
+        previewLabel = view(R.id.diagnostics_preview_label)
+        preview = view(R.id.diagnostics_preview)
 
         applySystemBarInsets(view(R.id.scroll))
 
@@ -148,6 +155,12 @@ class MainActivity : Activity() {
         }
 
         diagnosticsCounts.text = getString(R.string.diagnostics_counts, status.completionsDetected, status.swipes)
+        diagnosticsDetail.text = status.debug
+        diagnosticsDetail.visibility = if (serviceOn && status.debug.isNotEmpty()) View.VISIBLE else View.GONE
+        val image = status.preview
+        preview.setImageBitmap(image)
+        preview.visibility = if (serviceOn && image != null) View.VISIBLE else View.GONE
+        previewLabel.visibility = preview.visibility
         diagnosticsLog.text = if (status.log.isEmpty()) {
             getString(R.string.diagnostics_empty)
         } else {

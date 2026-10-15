@@ -23,21 +23,21 @@ class ProgressBarDetector(private val config: Config = Config()) {
 
     data class Config(
         /** Minimum luma (0..255) for a pixel to count as part of the filled bar. */
-        val brightLuma: Int = 180,
+        val brightLuma: Int = 145,
         /** Maximum max(r,g,b) - min(r,g,b) for a pixel to count as white-ish. */
-        val maxChroma: Int = 50,
+        val maxChroma: Int = 60,
         /** The filled part must start within this fraction of the width from the left edge. */
-        val maxStartInsetFraction: Float = 0.06f,
+        val maxStartInsetFraction: Float = 0.10f,
         /** Non-bright pixels tolerated inside the filled run (anti-aliasing, compression). */
         val maxGapPx: Int = 2,
         /** Rows this far above/below are sampled to confirm the bar is thin. */
         val neighbourOffsetPx: Int = 6,
         /** The filled run must be at least this much brighter than its neighbour rows. */
-        val minThinContrast: Int = 28,
+        val minThinContrast: Int = 20,
         /** The filled run must be at least this much brighter than the unfilled track. */
-        val minTrackContrast: Int = 35,
+        val minTrackContrast: Int = 25,
         /** Maximum luma standard deviation inside the filled run. */
-        val maxRunStdDev: Float = 28f,
+        val maxRunStdDev: Float = 34f,
         /** Shortest filled run worth reporting. */
         val minRunPx: Int = 6,
         /** A real bar is only a few pixels tall; taller bright bands are something else. */

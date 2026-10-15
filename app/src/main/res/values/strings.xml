@@ -56,6 +56,7 @@
     <string name="section_diagnostics">Diagnostics</string>
     <string name="diagnostics_counts">Completions detected: %1$d · Swipes: %2$d</string>
     <string name="diagnostics_empty">No events yet.</string>
+    <string name="diagnostics_preview_label">What LikeFlow last saw at the bottom of the screen. Red lines mark possible progress bars.</string>
 
     <string name="footer">Prototype. TikTok may loop a video instead of reporting that it finished, so LikeFlow waits whenever it can\'t confidently detect completion. Not affiliated with TikTok.</string>
 </resources>

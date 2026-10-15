@@ -93,7 +93,11 @@ This is a prototype. The first job is to find out what your phone and TikTok ver
    - Status stuck on **Waiting: no progress signal**: neither is available for that video. Try enabling **Visual loop check (experimental)**.
 4. Once the log matches what you saw, turn **Dry run** off.
 
+The **Diagnostics** card also shows what each detection method currently sees, for example "TikTok exposes no progress to accessibility" or "No progress bar visible on screen". Below that is a small image of the bottom of the screen as LikeFlow last analysed it, with red lines marking anything that looked like a progress bar. A screenshot of that card is the fastest way to tune detection for a phone.
+
 Things likely to need tuning on real devices: the screen strip searched for the bar (bottom 40 %, `analyse()` in the service), the brightness/contrast thresholds in `ProgressBarDetector.Config`, and the swipe path in `swipeUp()`.
+
+Debug builds are signed with the prototype key in `app/likeflow-debug.keystore`, so each new APK installs as an update. If you installed the very first build (v0.1.0), uninstall it once before installing a newer one.
 
 ## Privacy
 

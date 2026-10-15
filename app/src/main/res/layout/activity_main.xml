@@ -290,6 +290,30 @@
                 android:layout_marginTop="6dp" />
 
             <TextView
+                android:id="@+id/diagnostics_detail"
+                style="@style/LikeFlow.Body"
+                android:layout_marginTop="10dp"
+                android:fontFamily="monospace"
+                android:textColor="@color/text_primary"
+                android:textSize="12sp" />
+
+            <TextView
+                android:id="@+id/diagnostics_preview_label"
+                style="@style/LikeFlow.Hint"
+                android:layout_marginTop="12dp"
+                android:text="@string/diagnostics_preview_label"
+                android:visibility="gone" />
+
+            <ImageView
+                android:id="@+id/diagnostics_preview"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:adjustViewBounds="true"
+                android:contentDescription="@string/diagnostics_preview_label"
+                android:scaleType="fitCenter"
+                android:visibility="gone" />
+
+            <TextView
                 android:id="@+id/diagnostics_log"
                 style="@style/LikeFlow.Body"
                 android:layout_marginTop="10dp"

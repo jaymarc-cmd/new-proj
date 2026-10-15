@@ -5,6 +5,8 @@ import android.annotation.TargetApi
 import android.accessibilityservice.GestureDescription
 import android.content.SharedPreferences
 import android.graphics.Bitmap
+import android.graphics.Canvas
+import android.graphics.Paint
 import android.graphics.Path
 import android.graphics.Rect
 import android.os.Build
@@ -15,6 +17,7 @@ import android.os.SystemClock
 import android.util.TypedValue
 import android.view.Display
 import android.view.accessibility.AccessibilityEvent
+import android.view.accessibility.AccessibilityNodeInfo
 import com.likeflow.app.core.LikeFlowSettings
 import com.likeflow.app.core.LikeFlowStatus
 import com.likeflow.app.core.LikeFlowStatus.Phase
@@ -55,6 +58,8 @@ class LikeFlowAccessibilityService : AccessibilityService() {
     private var loopWarmupUntil = 0L
     private var lastIdentity: String? = null
     private var currentSource: Source? = null
+    private var lastTikTokEventAt = 0L
+    private var screenshotsTaken = 0
 
     /** Reused between screenshots. Only touched on [screenshotExecutor]. */
     private var stripBuffer = IntArray(0)
@@ -98,7 +103,9 @@ class LikeFlowAccessibilityService : AccessibilityService() {
 
     override fun onAccessibilityEvent(event: AccessibilityEvent) {
         // The service config already limits events to TikTok; this is a second guard.
-        if (!TikTok.isTikTok(event.packageName) || !settings.autoScrollEnabled) return
+        if (!TikTok.isTikTok(event.packageName)) return
+        lastTikTokEventAt = SystemClock.uptimeMillis()
+        if (!settings.autoScrollEnabled) return
         if (event.eventType == AccessibilityEvent.TYPE_VIEW_SCROLLED && isFeedScroll(event)) {
             if (SystemClock.uptimeMillis() >= cooldownUntil) {
                 LikeFlowStatus.log("Feed moved by hand, starting over on this video")
@@ -126,29 +133,46 @@ class LikeFlowAccessibilityService : AccessibilityService() {
             return // Restarted by the preference listener.
         }
 
-        val root = if (powerManager.isInteractive) rootInActiveWindow else null
-        if (root == null || !TikTok.isTikTok(root.packageName)) {
+        val now = SystemClock.uptimeMillis()
+        val root = if (powerManager.isInteractive) activeRoot() else null
+        // Some phones don't hand TikTok's window to the service. Recent TikTok events still prove
+        // it is on screen; another app's window in front proves it isn't.
+        val inTikTok = if (root != null) {
+            TikTok.isTikTok(root.packageName)
+        } else {
+            powerManager.isInteractive && now - lastTikTokEventAt < RECENT_EVENT_MS
+        }
+        if (!inTikTok) {
+            nodeDebug = if (root == null) "No active window readable" else "Foreground app: ${root.packageName}"
             root?.recycleCompat()
             resetVideoState()
             lastIdentity = null
             publish(Phase.WAITING_FOR_TIKTOK)
+            debug("")
             // TikTok events restart the loop sooner; this slow poll covers e.g. the notification
             // shade closing over a video that fires no events.
             schedule(AWAY_POLL_MS)
             return
         }
 
-        val now = SystemClock.uptimeMillis()
         if (now < cooldownUntil) {
-            root.recycleCompat()
+            root?.recycleCompat()
             publish(Phase.COOLDOWN)
             schedule(cooldownUntil - now)
             return
         }
 
         val metrics = resources.displayMetrics
-        val scan = NodeScanner.scan(root, metrics.widthPixels, metrics.heightPixels)
-        root.recycleCompat()
+        val scan = if (root != null) {
+            NodeScanner.scan(root, metrics.widthPixels, metrics.heightPixels).also { root.recycleCompat() }
+        } else {
+            NodeScanner.Result(progress = null, identity = null)
+        }
+        nodeDebug = when {
+            root == null -> "TikTok window not readable; using screenshots only"
+            scan.progress != null -> "TikTok exposes progress: ${pct(scan.progress)}"
+            else -> "TikTok exposes no progress to accessibility"
+        }
 
         val previousIdentity = lastIdentity
         if (scan.identity != null) {
@@ -164,6 +188,10 @@ class LikeFlowAccessibilityService : AccessibilityService() {
         } else if (settings.screenshotDetection && Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
             requestScreenshot() // Schedules the next tick when it returns.
         } else {
+            debug(
+                if (Build.VERSION.SDK_INT < Build.VERSION_CODES.R) "Screen reading needs Android 11+"
+                else "Screen reading is switched off",
+            )
             handleProgress(null, null, anchor = null, now = now)
             schedule(TICK_MS)
         }
@@ -237,6 +265,7 @@ class LikeFlowAccessibilityService : AccessibilityService() {
     private class ScreenAnalysis(
         val bars: List<ProgressBarDetector.Candidate>,
         val frame: FrameSignature?,
+        val preview: Bitmap?,
     )
 
     /** Runs on [screenshotExecutor]. */
@@ -249,6 +278,7 @@ class LikeFlowAccessibilityService : AccessibilityService() {
         if (stripBuffer.size < w * stripHeight) stripBuffer = IntArray(w * stripHeight)
         bitmap.getPixels(stripBuffer, 0, w, 0, top, w, stripHeight)
         val bars = barDetector.detect(stripBuffer, w, stripHeight).map { it.copy(row = it.row + top) }
+        val preview = if (screenshotsTaken % PREVIEW_EVERY == 0) preview(bitmap, top, stripHeight, bars) else null
 
         // The middle of the video, away from TikTok's buttons and captions.
         val frame = if (settings.visualLoopDetection) {
@@ -262,11 +292,29 @@ class LikeFlowAccessibilityService : AccessibilityService() {
         } else {
             null
         }
-        return ScreenAnalysis(bars, frame)
+        return ScreenAnalysis(bars, frame, preview)
+    }
+
+    /** A small copy of the analysed strip with every bar candidate marked, for the app screen. */
+    private fun preview(bitmap: Bitmap, top: Int, stripHeight: Int, bars: List<ProgressBarDetector.Candidate>): Bitmap {
+        val scale = PREVIEW_WIDTH.toFloat() / bitmap.width
+        val strip = Bitmap.createBitmap(bitmap, 0, top, bitmap.width, stripHeight)
+        val out = Bitmap.createScaledBitmap(strip, PREVIEW_WIDTH, (stripHeight * scale).toInt().coerceAtLeast(1), true)
+            .copy(Bitmap.Config.ARGB_8888, true)
+        strip.recycle()
+        val canvas = Canvas(out)
+        val paint = Paint().apply { color = 0xFFFF2050.toInt(); strokeWidth = 2f }
+        for (bar in bars) {
+            val y = (bar.row - top) * scale
+            canvas.drawLine(0f, y, bar.fraction * out.width, y, paint)
+        }
+        return out
     }
 
     private fun onScreenAnalysed(analysis: ScreenAnalysis?) {
         screenshotInFlight = false
+        screenshotsTaken++
+        analysis?.preview?.let { preview -> LikeFlowStatus.update { it.copy(preview = preview) } }
         if (!settings.autoScrollEnabled) {
             schedule(0) // Publishes the paused state.
             return
@@ -278,6 +326,15 @@ class LikeFlowAccessibilityService : AccessibilityService() {
         }
 
         val bar = analysis?.let { barLock.update(it.bars) }
+        debug(
+            when {
+                analysis == null -> "Screenshot failed"
+                bar != null -> "Progress bar locked at ${pct(bar.fraction)}"
+                analysis.bars.isEmpty() -> "No progress bar visible on screen"
+                else -> "${analysis.bars.size} bar-like line(s) seen, waiting to see one move " +
+                    "(best ${pct(analysis.bars.first().fraction)})"
+            },
+        )
         if (bar != null || tracker.hasSignal) {
             handleProgress(bar?.fraction, Source.SCREEN_BAR, bar?.row, now)
         } else if (analysis?.frame != null && now >= loopWarmupUntil) {
@@ -322,6 +379,24 @@ class LikeFlowAccessibilityService : AccessibilityService() {
     }
 
     // ---- Helpers ----------------------------------------------------------------------------
+
+    private var nodeDebug = ""
+
+    private fun debug(screen: String) {
+        val text = listOf(nodeDebug, screen, "Screenshots analysed: $screenshotsTaken")
+            .filter { it.isNotEmpty() }
+            .joinToString("\n")
+        LikeFlowStatus.update { it.copy(debug = text) }
+    }
+
+    /** The focused window's content, also looking through the window list for phones where
+     *  rootInActiveWindow comes back empty. */
+    private fun activeRoot(): AccessibilityNodeInfo? =
+        rootInActiveWindow ?: try {
+            windows.firstOrNull { it.isActive }?.root
+        } catch (e: RuntimeException) {
+            null
+        }
 
     private fun resetVideoState() {
         tracker.reset()
@@ -373,6 +448,9 @@ class LikeFlowAccessibilityService : AccessibilityService() {
     private companion object {
         const val TICK_MS = 500L
         const val AWAY_POLL_MS = 1_500L
+        const val RECENT_EVENT_MS = 4_000L
+        const val PREVIEW_EVERY = 4
+        const val PREVIEW_WIDTH = 360
         const val SWIPE_DURATION_MS = 280L
         const val SWIPE_COOLDOWN_MS = 1_500L
         const val DRY_RUN_COOLDOWN_MS = 2_500L
