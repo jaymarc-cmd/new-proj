@@ -1,0 +1,5 @@
+# Local design-review captures (regenerated on every review)
+.impeccable/review/
+.impeccable/build/
+.impeccable/config.local.json
+.DS_Store

@@ -1,0 +1,219 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Jay Marc Merilo · Android & Frontend Developer</title>
+  <meta name="description" content="Jay Marc Merilo builds Android apps and web interfaces with a QA mindset: careful about state, honest about their limits, and tested before they ship.">
+  <meta name="author" content="Jay Marc Merilo">
+  <meta name="theme-color" content="#f2f0ea">
+  <meta name="color-scheme" content="light">
+
+  <!-- Social sharing. Update og:url and og:image once the site has a public address. -->
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Jay Marc Merilo">
+  <meta property="og:title" content="Jay Marc Merilo · Android & Frontend Developer">
+  <meta property="og:description" content="Software that checks its work before it acts. Android apps and web interfaces, built and tested with care.">
+  <meta property="og:image" content="img/og.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Jay Marc Merilo, Android & Frontend Developer, set as a printer's proof sheet.">
+  <meta name="twitter:card" content="summary_large_image">
+
+  <link rel="icon" href="img/favicon.svg" type="image/svg+xml">
+  <link rel="preload" href="fonts/schibsted-grotesk-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="css/tokens.css">
+  <link rel="stylesheet" href="css/site.css">
+  <script defer src="js/content.js"></script>
+  <script defer src="js/main.js"></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <svg width="0" height="0" class="sr-only" aria-hidden="true" focusable="false">
+    <symbol id="reg" viewBox="0 0 24 24">
+      <circle cx="12" cy="12" r="6.5" fill="none" stroke="currentColor" stroke-width="1"/>
+      <path d="M12 0v24M0 12h24" stroke="currentColor" stroke-width="1"/>
+      <circle cx="12" cy="12" r="2.5" fill="currentColor"/>
+    </symbol>
+    <symbol id="arrow" viewBox="0 0 16 16">
+      <path d="M2 8h11M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="square"/>
+    </symbol>
+    <symbol id="arrow-up" viewBox="0 0 16 16">
+      <path d="M8 14V3M4 7l4-4 4 4" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="square"/>
+    </symbol>
+    <symbol id="arrow-out" viewBox="0 0 16 16">
+      <path d="M4 12l8-8M5.5 4H12v6.5" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="square"/>
+    </symbol>
+  </svg>
+
+  <header class="slug" data-slug>
+    <div class="slug__inner">
+      <a class="wordmark" href="#top" data-wordmark>Jay Marc Merilo</a>
+      <nav class="slug__nav" aria-label="Primary">
+        <ul>
+          <li><a href="#work" data-nav-link="work">Work</a></li>
+          <li><a href="#about" data-nav-link="about">About</a></li>
+          <li><a href="#process" data-nav-link="process">Process</a></li>
+          <li><a href="#contact" data-nav-link="contact">Contact</a></li>
+        </ul>
+      </nav>
+      <p class="availability" data-availability hidden></p>
+      <a class="btn btn--ink btn--compact slug__cta" href="#contact">Get in touch</a>
+      <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="menu" data-menu-toggle>
+        <span class="menu-toggle__label">Menu</span>
+        <span class="menu-toggle__icon" aria-hidden="true"></span>
+      </button>
+    </div>
+  </header>
+
+  <div class="menu" id="menu" data-menu hidden>
+    <nav aria-label="Primary (mobile)">
+      <ol class="menu__list">
+        <li><a href="#work">Work</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#process">Process</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ol>
+    </nav>
+    <div class="menu__foot">
+      <p class="availability" data-availability hidden></p>
+      <a class="btn btn--ink" href="#contact">Get in touch</a>
+    </div>
+  </div>
+
+  <main id="main" tabindex="-1">
+    <div id="top" class="view view--home" data-view="home">
+
+      <section class="hero" aria-labelledby="hero-title">
+        <div class="hero__grid page-grid">
+          <p class="hero__label" data-hero-label></p>
+          <h1 class="hero__title" id="hero-title" data-hero-title></h1>
+          <div class="hero__intro">
+            <p class="hero__statement lead" data-hero-statement></p>
+            <div class="hero__actions" data-hero-actions></div>
+          </div>
+          <figure class="hero__plate plate" data-hero-plate aria-labelledby="hero-plate-cap"></figure>
+          <a class="colorbar" href="#work" aria-label="Scroll to selected work">
+            <span class="colorbar__patches" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i></span>
+            <span class="colorbar__label">Scroll</span>
+          </a>
+          <svg class="reg reg--hero-a" aria-hidden="true"><use href="#reg"/></svg>
+          <svg class="reg reg--hero-b" aria-hidden="true"><use href="#reg"/></svg>
+        </div>
+      </section>
+
+      <section class="section work" id="work" aria-labelledby="work-title" data-section="work">
+        <div class="page-grid section__head">
+          <h2 class="section__title" id="work-title">Selected work</h2>
+          <p class="section__aside">Each project opens into a full case study: the problem, the decisions, and what came of them.</p>
+        </div>
+        <ol class="work__list page-grid" data-work-list></ol>
+      </section>
+
+      <section class="section about" id="about" aria-labelledby="about-title" data-section="about">
+        <div class="page-grid section__head">
+          <h2 class="section__title" id="about-title">About</h2>
+        </div>
+        <div class="page-grid about__grid">
+          <figure class="about__portrait plate marks" data-portrait></figure>
+          <div class="about__body">
+            <div class="about__intro" data-about-intro></div>
+            <div class="about__links" data-about-links></div>
+            <div class="about__philosophy">
+              <h3 class="subhead">How I work</h3>
+              <dl class="principles" data-principles></dl>
+            </div>
+          </div>
+        </div>
+        <div class="page-grid about__more">
+          <div class="about__experience">
+            <h3 class="subhead">Experience</h3>
+            <ol class="ledger" data-experience></ol>
+          </div>
+        </div>
+      </section>
+
+      <section class="section capabilities" id="capabilities" aria-labelledby="cap-title" data-section="about">
+        <div class="page-grid section__head">
+          <h2 class="section__title" id="cap-title">Capabilities</h2>
+          <p class="section__aside">Each line points to where it's shown. If it isn't shown, it isn't listed.</p>
+        </div>
+        <div class="page-grid">
+          <table class="spec" data-capabilities>
+            <caption class="sr-only">Capabilities, the tools involved, and where each is demonstrated</caption>
+            <thead>
+              <tr><th scope="col">Area</th><th scope="col">Tools and practices</th><th scope="col">Shown in</th></tr>
+            </thead>
+            <tbody></tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="section process" id="process" aria-labelledby="process-title" data-section="process">
+        <div class="page-grid section__head">
+          <h2 class="section__title" id="process-title">Process</h2>
+          <p class="section__aside">Five proofs from problem to delivery. Each one has to pass before the next begins.</p>
+        </div>
+        <ol class="process__list page-grid" data-process></ol>
+      </section>
+
+      <section class="section contact" id="contact" aria-labelledby="contact-title" data-section="contact">
+        <div class="page-grid contact__grid">
+          <div class="contact__lead">
+            <h2 class="contact__title" id="contact-title" data-contact-title></h2>
+            <p class="lead" data-contact-invitation></p>
+            <p class="contact__email" data-contact-email></p>
+            <ul class="contact__socials" data-socials></ul>
+          </div>
+          <form class="form" data-contact-form novalidate>
+            <div class="field">
+              <label for="f-name">Name</label>
+              <input id="f-name" name="name" type="text" autocomplete="name" required maxlength="120" aria-describedby="f-name-err">
+              <p class="field__error" id="f-name-err" data-error-for="name"></p>
+            </div>
+            <div class="field">
+              <label for="f-email">Email</label>
+              <input id="f-email" name="email" type="email" autocomplete="email" required maxlength="254" aria-describedby="f-email-err" spellcheck="false">
+              <p class="field__error" id="f-email-err" data-error-for="email"></p>
+            </div>
+            <div class="field">
+              <label for="f-message">What are you working on?</label>
+              <textarea id="f-message" name="message" rows="6" required minlength="20" maxlength="4000" aria-describedby="f-message-hint f-message-err"></textarea>
+              <p class="field__hint" id="f-message-hint">A few sentences is plenty: the project, the timeline, and what's not working.</p>
+              <p class="field__error" id="f-message-err" data-error-for="message"></p>
+            </div>
+            <div class="form__foot">
+              <button class="btn btn--ink" type="submit" data-submit>
+                <span data-submit-label>Send message</span>
+                <svg class="icon" aria-hidden="true"><use href="#arrow"/></svg>
+              </button>
+              <p class="form__status" role="status" aria-live="polite" data-form-status></p>
+            </div>
+          </form>
+        </div>
+      </section>
+    </div>
+
+    <article class="view view--case" data-view="case" hidden aria-labelledby="case-title"></article>
+  </main>
+
+  <footer class="footer">
+    <div class="page-grid footer__grid">
+      <a class="wordmark" href="#top">Jay Marc Merilo</a>
+      <ul class="footer__socials" data-footer-socials></ul>
+      <p class="footer__meta">© <span data-year></span> Jay Marc Merilo. Set in Schibsted Grotesk and Fragment Mono.</p>
+      <a class="footer__top" href="#top">
+        Back to top
+        <svg class="icon" aria-hidden="true"><use href="#arrow-up"/></svg>
+      </a>
+    </div>
+  </footer>
+
+  <noscript>
+    <div class="noscript">
+      <p><strong>Jay Marc Merilo, Android &amp; Frontend Developer.</strong> This portfolio needs JavaScript to show its content. Source and contact: <a href="https://github.com/jaymarc-cmd">github.com/jaymarc-cmd</a>.</p>
+    </div>
+  </noscript>
+</body>
+</html>

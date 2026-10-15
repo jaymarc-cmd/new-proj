@@ -1,0 +1,121 @@
+/*
+ * Design tokens: the press-proof system.
+ * Stock, process black, two grays, and one spot colour (process cyan).
+ */
+
+@font-face {
+  font-family: "Schibsted Grotesk";
+  src: url("../fonts/schibsted-grotesk-latin-wght-normal.woff2") format("woff2-variations"),
+       url("../fonts/schibsted-grotesk-latin-wght-normal.woff2") format("woff2");
+  font-weight: 400 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Fragment Mono";
+  src: url("../fonts/fragment-mono-latin-400-normal.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Metric-matched fallback so the swap doesn't shift the headline. */
+@font-face {
+  font-family: "Schibsted Fallback";
+  src: local("Arial"), local("Helvetica Neue"), local("Helvetica");
+  size-adjust: 101%;
+  ascent-override: 96%;
+  descent-override: 25%;
+  line-gap-override: 0%;
+}
+
+:root {
+  /* Colour */
+  --stock: #f2f0ea;          /* uncoated warm sheet */
+  --stock-deep: #e8e5dc;     /* plate fill, FPO boxes */
+  --stock-shade: #dedad0;    /* pressed/hover wash */
+  --ink: #141413;            /* process black */
+  --ink-2: #474641;          /* secondary text, 8.6:1 on stock */
+  --ink-3: #66645d;          /* meta text, 5.4:1 on stock */
+  --rule: #cdc9be;           /* hairlines */
+  --rule-strong: #8f8c83;    /* emphasised rules, field borders (3.1:1) */
+  --cyan: #0091cf;           /* process cyan: marks, focus, register (3.3:1, non-text only) */
+  --cyan-ink: #00689a;       /* cyan when it has to carry text (5.6:1) */
+  --cyan-wash: #d5ebf3;      /* placeholder wash */
+  --signal: #127a4b;         /* availability dot */
+  --error: #a3261b;          /* form errors (6.4:1) */
+
+  /* Type */
+  --font-sans: "Schibsted Grotesk", "Schibsted Fallback", "Helvetica Neue", Arial, sans-serif;
+  --font-mono: "Fragment Mono", ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+
+  --fs-display: clamp(2.625rem, 1.15rem + 6.1vw, 6rem);
+  --fs-h2: clamp(2.25rem, 1.4rem + 3.4vw, 4.25rem);
+  --fs-h3: clamp(1.375rem, 1.1rem + 1.1vw, 2rem);
+  --fs-h4: 1.1875rem;
+  --fs-lead: clamp(1.1875rem, 1.05rem + 0.5vw, 1.4375rem);
+  --fs-body: 1.0625rem;
+  --fs-small: 0.9375rem;
+  --fs-meta: 0.8125rem;
+  --fs-slug: 0.75rem;
+
+  --lh-tight: 0.94;
+  --lh-snug: 1.12;
+  --lh-body: 1.55;
+
+  --track-display: -0.035em;
+  --track-head: -0.025em;
+  --track-slug: 0.02em;
+
+  --measure: 66ch;
+  --measure-narrow: 44ch;
+
+  /* Space: 4px base */
+  --s-1: 0.25rem;
+  --s-2: 0.5rem;
+  --s-3: 0.75rem;
+  --s-4: 1rem;
+  --s-5: 1.5rem;
+  --s-6: 2rem;
+  --s-7: 3rem;
+  --s-8: 4rem;
+  --s-9: 6rem;
+  --s-10: 8rem;
+  --section-space: clamp(5.5rem, 3rem + 9vw, 11rem);
+
+  /* Layout */
+  --page-max: 92rem;                          /* 1472px */
+  --margin: clamp(1rem, 0.4rem + 3.2vw, 3.5rem);
+  --gutter: clamp(1rem, 0.6rem + 1.1vw, 1.5rem);
+  --cols: 12;
+  --slug-h: 3.5rem;
+
+  /* Marks */
+  --mark-len: 0.875rem;
+  --mark-gap: 0.4375rem;
+  --mark-color: var(--ink);
+
+  /* Edges: the sheet has no rounded corners and no shadows. */
+  --radius: 0;
+  --hair: 1px;
+
+  /* Motion */
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);     /* expo-out */
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+  --dur-1: 140ms;
+  --dur-2: 280ms;
+  --dur-3: 560ms;
+  --dur-register: 1200ms;
+
+  /* Breakpoints (reference only; CSS can't read custom properties in media queries)
+     sm 40rem / 640px · md 56rem / 896px · lg 72rem / 1152px · xl 90rem / 1440px */
+}
+
+@media (max-width: 40rem) {
+  :root {
+    --mark-len: 0.625rem;
+    --mark-gap: 0.3125rem;
+    --slug-h: 3.25rem;
+  }
+}
